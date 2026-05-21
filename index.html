@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rubelyn Castro — Portfolio</title>
+
+
+<style>
+
+/* =========================
+   ROOT COLORS
+========================= */
+
+:root{
+    --bg-main:#1e112a;
+    --bg-card:#2d1b3e;
+    --bg-input:#3a244f;
+    --accent-light:#52356d;
+    --text-primary:#ffffff;
+    --text-secondary:#c8b9d9;
+    --accent-green:#4ade80;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+/* =========================
+   BODY
+========================= */
+
+body{
+    background:var(--bg-main);
+    color:var(--text-primary);
+    padding:40px 20px;
+    display:flex;
+    justify-content:center;
+    overflow-x:hidden;
+    transition:0.4s ease;
+    position:relative;
+}
+
+/* BACKGROUND GLOW */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:rgba(139,92,246,0.18);
+    border-radius:50%;
+    top:-150px;
+    left:-150px;
+    filter:blur(100px);
+    z-index:-1;
+    animation:moveGlow 10s infinite alternate;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:rgba(74,222,128,0.12);
+    border-radius:50%;
+    bottom:-150px;
+    right:-100px;
+    filter:blur(100px);
+    z-index:-1;
+    animation:moveGlow2 12s infinite alternate;
+}
+
+@keyframes moveGlow{
+    from{
+        transform:translate(0,0);
+    }
+    to{
+        transform:translate(100px,60px);
+    }
+}
+
+@keyframes moveGlow2{
+    from{
+        transform:translate(0,0);
+    }
+    to{
+        transform:translate(-80px,-50px);
+    }
+}
+
+/* =========================
+   LIGHT MODE
+========================= */
+
+body.light-mode{
+    --bg-main:#f3f4f6;
+    --bg-card:#ffffff;
+    --bg-input:#e5e7eb;
+    --accent-light:#d6d6d6;
+    --text-primary:#111827;
+    --text-secondary:#4b5563;
+}
+
+/* =========================
+   SCROLL BAR
+========================= */
+
+.scroll-indicator{
+    position:fixed;
+    top:0;
+    left:0;
+    width:0%;
+    height:5px;
+    background:linear-gradient(
+        90deg,
+        #4ade80,
+        #8b5cf6
+    );
+    z-index:9999;
+}
+
+/* =========================
+   THEME BUTTON
+========================= */
+
+.theme-toggle{
+    position:fixed;
+    top:20px;
+    right:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:1.3rem;
+    background:white;
+    color:#111;
+    z-index:999;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    transition:0.4s ease;
+}
+
+.theme-toggle:hover{
+    transform:rotate(180deg) scale(1.1);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.portfolio-container{
+    width:100%;
+    max-width:1100px;
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.meta-subtitle{
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--text-secondary);
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.tagline{
+    font-style:italic;
+    color:var(--text-secondary);
+    margin-bottom:20px;
+    min-height:30px;
+}
+
+.cta-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    padding:12px 22px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn-primary{
+    background:white;
+    color:var(--bg-main);
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,0.15);
+    color:var(--text-primary);
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+}
+
+.btn::before,
+.btn-check::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    transition:0.6s;
+}
+
+.btn:hover::before,
+.btn-check:hover::before{
+    left:100%;
+}
+
+/* =========================
+   PROFILE IMAGE
+========================= */
+
+.profile-circle{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    overflow:hidden;
+    border:4px solid rgba(255,255,255,0.15);
+    box-shadow:0 15px 35px rgba(0,0,0,0.35);
+    animation:float 3s ease-in-out infinite;
+    transition:0.5s ease;
+    flex-shrink:0;
+}
+
+.profile-circle img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-circle:hover{
+    transform:scale(1.08) rotate(3deg);
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome-banner{
+    background:rgba(255,255,255,0.05);
+    border:1px dashed rgba(255,255,255,0.15);
+    padding:16px 20px;
+    border-radius:12px;
+    margin-bottom:30px;
+    color:var(--text-secondary);
+    backdrop-filter:blur(5px);
+    transition:0.4s ease;
+}
+
+.welcome-banner:hover{
+    transform:scale(1.01);
+    border-color:#4ade80;
+    box-shadow:0 0 15px rgba(74,222,128,0.2);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.layout-grid{
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:25px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:var(--bg-card);
+    padding:24px;
+    border-radius:18px;
+    margin-bottom:25px;
+    transition:0.4s ease;
+    border:1px solid rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        120deg,
+        rgba(255,255,255,0.06),
+        transparent,
+        rgba(255,255,255,0.03)
+    );
+    opacity:0;
+    transition:0.5s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:
+    0 0 15px rgba(255,255,255,0.05),
+    0 12px 25px rgba(0,0,0,0.35);
+}
+
+h2{
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* =========================
+   LISTS
+========================= */
+
+.skills-list,
+.hobbies-list{
+    list-style:none;
+}
+
+.skills-list li,
+.hobbies-list li{
+    margin-bottom:12px;
+    color:var(--text-secondary);
+}
+
+.skills-list li::before,
+.hobbies-list li::before{
+    content:"• ";
+    color:var(--accent-green);
+    font-weight:bold;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-item{
+    margin-bottom:15px;
+    padding:10px;
+    border-radius:10px;
+    transition:0.3s ease;
+}
+
+.contact-item:hover{
+    background:rgba(255,255,255,0.05);
+    transform:translateX(6px);
+}
+
+.contact-label{
+    font-size:0.75rem;
+    text-transform:uppercase;
+    color:var(--text-secondary);
+    margin-bottom:5px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-text{
+    color:var(--text-secondary);
+    line-height:1.8;
+    margin-bottom:15px;
+}
+
+/* =========================
+   BADGES
+========================= */
+
+.badge-container{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.badge{
+    padding:7px 14px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.06);
+    font-size:0.75rem;
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.3s ease;
+    cursor:pointer;
+}
+
+.badge:hover{
+    background:#4ade80;
+    color:#111;
+    transform:translateY(-4px);
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline-item{
+    border-left:2px solid var(--accent-light);
+    padding-left:20px;
+    margin-bottom:20px;
+    transition:0.4s ease;
+}
+
+.timeline-item:hover{
+    transform:translateX(10px);
+}
+
+.timeline-date{
+    color:var(--accent-green);
+    font-size:0.8rem;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.timeline-title{
+    font-size:1.05rem;
+    margin-bottom:5px;
+    font-weight:600;
+}
+
+.timeline-sub{
+    color:var(--text-secondary);
+    font-size:0.92rem;
+}
+
+/* =========================
+   GRADE CHECKER
+========================= */
+
+.checker-box{
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+}
+
+.checker-box input{
+    flex:1;
+    background:var(--bg-input);
+    border:none;
+    border-radius:10px;
+    padding:12px;
+    color:var(--text-primary);
+    transition:0.3s ease;
+}
+
+.checker-box input:focus{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(74,222,128,0.3);
+}
+
+.checker-box input:hover{
+    box-shadow:0 0 12px rgba(74,222,128,0.2);
+}
+
+.btn-check{
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    background:white;
+    color:var(--bg-main);
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn-check:hover{
+    transform:translateY(-3px);
+}
+
+.result-display{
+    margin-top:15px;
+    font-weight:600;
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:15px;
+}
+
+.project-card{
+    background:rgba(255,255,255,0.04);
+    padding:18px;
+    border-radius:14px;
+    transition:0.4s ease;
+    position:relative;
+    overflow:hidden;
+    animation:floatProject 5s ease-in-out infinite;
+}
+
+.project-card:nth-child(2){
+    animation-delay:1s;
+}
+
+.project-card:nth-child(3){
+    animation-delay:2s;
+}
+
+.project-card:nth-child(4){
+    animation-delay:3s;
+}
+
+@keyframes floatProject{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-6px);
+    }
+}
+
+.project-card::before{
+    content:"";
+    position:absolute;
+    width:120%;
+    height:120%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
+    );
+    top:-120%;
+    left:-120%;
+    transition:0.7s;
+}
+
+.project-card:hover::before{
+    top:100%;
+    left:100%;
+}
+
+.project-card:hover{
+    transform:scale(1.03);
+}
+
+.project-title{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.project-desc{
+    color:var(--text-secondary);
+    font-size:0.88rem;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.tech-tag{
+    font-size:0.7rem;
+    padding:4px 8px;
+    border-radius:4px;
+    background:rgba(255,255,255,0.06);
+    margin-right:5px;
+    transition:0.3s ease;
+    cursor:pointer;
+}
+
+.tech-tag:hover{
+    background:#4ade80;
+    color:#111;
+    transform:scale(1.1);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    margin-top:40px;
+    border-top:1px solid rgba(255,255,255,0.08);
+    padding-top:20px;
+    display:flex;
+    justify-content:space-between;
+    color:var(--text-secondary);
+    font-size:0.85rem;
+    position:relative;
+}
+
+footer::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:150px;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #4ade80,
+        transparent
+    );
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#1a1023;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#5f3d81;
+    border-radius:20px;
+}
+
+/* =========================
+   SELECTION
+========================= */
+
+::selection{
+    background:#4ade80;
+    color:#111;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    header{
+        flex-direction:column-reverse;
+        text-align:center;
+    }
+
+    .layout-grid{
+        grid-template-columns:1fr;
+    }
+
+    .projects-grid{
+        grid-template-columns:1fr;
+    }
+
+    .checker-box{
+        flex-direction:column;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:10px;
+        text-align:center;
+    }
+
+    h1{
+        font-size:2.3rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SCROLL INDICATOR -->
+
+<div class="scroll-indicator" id="scrollIndicator"></div>
+
+<!-- DARK MODE BUTTON -->
+
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+🌙
+</button>
+
+<div class="portfolio-container">
+
+<header>
+
+<div>
+
+<p class="meta-subtitle">
+Bachelor of Technological Livelihood Education · Major in ICT · 2nd Year
+</p>
+
+<h1>Rubelyn Castro</h1>
+
+<p class="tagline"></p>
+
+<div class="cta-buttons">
+
+<a href="mailto:rubelynncutiee@gmail.com" class="btn btn-primary">
+Say Hello
+</a>
+
+<a href="#projects-section" class="btn btn-secondary">
+View My Projects
+</a>
+
+</div>
+
+</div>
+
+<!-- PROFILE IMAGE -->
+
+<div class="profile-circle">
+
+<!-- CHANGE IMAGE HERE -->
+
+<img src="rube.com.png" alt="Rubelyn Castro">
+
+</div>
+
+</header>
+
+<div class="welcome-banner">
+Welcome to my portfolio website!
+</div>
+
+<div class="layout-grid">
+
+<!-- SIDEBAR -->
+
+<aside>
+
+<div class="card">
+
+<h2>Skills</h2>
+
+<ul class="skills-list">
+<li>Time Management</li>
+<li>Problem Solver</li>
+<li>Positive Thinker</li>
+<li>Quick Learner</li>
+<li>Communication Abilities</li>
+<li>Technical Communication</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>Hobbies</h2>
+
+<ul class="hobbies-list">
+<li>Dancing</li>
+<li>Singing</li>
+<li>Playing Online Games</li>
+<li>Watching Entertainment Videos</li>
+<li>Reading Comics</li>
+<li>Swimming</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>Contact</h2>
+
+<div class="contact-item">
+<p class="contact-label">Email</p>
+<p>rubelynncutiee@gmail.com</p>
+</div>
+
+<div class="contact-item">
+<p class="contact-label">Location</p>
+<p>Limpapa, Zamboanga City</p>
+</div>
+
+<div class="contact-item">
+<p class="contact-label">GitHub</p>
+<p>github.com/rubelyncastro</p>
+</div>
+
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main>
+
+<div class="card">
+
+<h2>About Me</h2>
+
+<p class="about-text">
+Hello! I'm Rubelyn Castro, a 2nd-year Bachelor of Technological Livelihood Education major in ICT student from Limpapa, Zamboanga City.
+</p>
+
+<p class="about-text">
+I enjoy exploring technology, designing creative interfaces, and improving my skills in communication, education, and web development.
+</p>
+
+<div class="badge-container">
+<span class="badge">ICT Student</span>
+<span class="badge">Creative Thinker</span>
+<span class="badge">Future Educator</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Education</h2>
+
+<div class="timeline-item">
+
+<p class="timeline-date">
+2024 — Present
+</p>
+
+<p class="timeline-title">
+Bachelor of Technological Livelihood Education Major in ICT
+</p>
+
+<p class="timeline-sub">
+Colegio de la Ciudad de Zamboanga
+</p>
+
+</div>
+
+<div class="timeline-item">
+
+<p class="timeline-date">
+Senior High School
+</p>
+
+<p class="timeline-title">
+HUMSS Strand
+</p>
+
+<p class="timeline-sub">
+With Honors · Proficiency in Work Immersion · Limpapa National High School
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Grade Checker</h2>
+
+<p style="color:var(--text-secondary);">
+Enter your grade below:
+</p>
+
+<div class="checker-box">
+
+<input
+type="number"
+id="gradeInput"
+placeholder="Enter Grade"
+>
+
+<button class="btn-check" onclick="checkGrade()">
+Check
+</button>
+
+</div>
+
+<div id="gradeResult" class="result-display"></div>
+
+</div>
+
+<div class="card" id="projects-section">
+
+<h2>Projects</h2>
+
+<div class="projects-grid">
+
+<div class="project-card">
+
+<p class="project-title">
+Interactive Quiz Web App
+</p>
+
+<p class="project-desc">
+A responsive quiz application designed for student lesson reviews and activities.
+</p>
+
+<span class="tech-tag">HTML</span>
+<span class="tech-tag">CSS</span>
+<span class="tech-tag">JS</span>
+
+</div>
+
+<div class="project-card">
+
+<p class="project-title">
+ICT Lesson Planner
+</p>
+
+<p class="project-desc">
+A digital planner concept for organizing ICT teaching activities and tasks.
+</p>
+
+<span class="tech-tag">DESIGN</span>
+<span class="tech-tag">DOCS</span>
+
+</div>
+
+<div class="project-card">
+
+<p class="project-title">
+Portfolio Website
+</p>
+
+<p class="project-desc">
+My personal portfolio website showcasing my skills and educational journey.
+</p>
+
+<span class="tech-tag">HTML</span>
+<span class="tech-tag">CSS</span>
+
+</div>
+
+<div class="project-card">
+
+<p class="project-title">
+Hardware Guidebook App
+</p>
+
+<p class="project-desc">
+A beginner-friendly ICT hardware reference and troubleshooting guide.
+</p>
+
+<span class="tech-tag">PYTHON</span>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Rubelyn Castro
+</p>
+
+<p>
+Built with HTML, CSS & JavaScript
+</p>
+
+</footer>
+
+</div>
+
+<script>
+
+/* =========================
+   GRADE CHECKER
+========================= */
+
+function checkGrade(){
+
+    const input =
+        document.getElementById("gradeInput").value;
+
+    const result =
+        document.getElementById("gradeResult");
+
+    if(input === ""){
+
+        result.style.color = "#ff6b6b";
+        result.innerHTML =
+            "Please enter your grade.";
+
+        return;
+    }
+
+    const grade = parseFloat(input);
+
+    if(grade < 0 || grade > 100){
+
+        result.style.color = "#ff6b6b";
+        result.innerHTML =
+            "Please enter a valid grade.";
+
+    }
+
+    else if(grade >= 95){
+
+        result.style.color = "#4ade80";
+        result.innerHTML =
+            "Excellent! Outstanding work! 🎉";
+
+    }
+
+    else if(grade >= 85){
+
+        result.style.color = "#4ade80";
+        result.innerHTML =
+            "Very Satisfactory! Keep it up! ✨";
+
+    }
+
+    else if(grade >= 75){
+
+        result.style.color = "#ffda79";
+        result.innerHTML =
+            "Passing Grade! Good job! 👍";
+
+    }
+
+    else{
+
+        result.style.color = "#ff6b6b";
+        result.innerHTML =
+            "Needs Improvement. 📚";
+
+    }
+
+}
+
+/* =========================
+   ENTER KEY SUPPORT
+========================= */
+
+document
+.getElementById("gradeInput")
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+
+        checkGrade();
+
+    }
+
+});
+
+/* =========================
+   DARK / LIGHT MODE
+========================= */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light-mode");
+
+    const button =
+        document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("light-mode")){
+
+        button.innerHTML = "☀️";
+
+    }
+
+    else{
+
+        button.innerHTML = "🌙";
+
+    }
+
+}
+
+/* =========================
+   TYPING EFFECT
+========================= */
+
+const text =
+"Empowering the next generation through technology and education.";
+
+const tagline =
+document.querySelector(".tagline");
+
+let index = 0;
+
+function typeEffect(){
+
+    if(index < text.length){
+
+        tagline.innerHTML +=
+            text.charAt(index);
+
+        index++;
+
+        setTimeout(typeEffect, 40);
+
+    }
+
+}
+
+typeEffect();
+
+/* =========================
+   SCROLL INDICATOR
+========================= */
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const scrollPercent =
+        (scrollTop / scrollHeight) * 100;
+
+    document.getElementById(
+        "scrollIndicator"
+    ).style.width = scrollPercent + "%";
+
+});
+
+/* =========================
+   GREETING MESSAGE
+========================= */
+
+const banner =
+document.querySelector(".welcome-banner");
+
+const currentHour =
+new Date().getHours();
+
+if(currentHour < 12){
+
+    banner.innerHTML =
+    "☀️ Good morning! Welcome to my portfolio website.";
+
+}
+
+else if(currentHour < 18){
+
+    banner.innerHTML =
+    "🌤️ Good afternoon! Welcome to my portfolio website.";
+
+}
+
+else{
+
+    banner.innerHTML =
+    "🌙 Good evening! Welcome to my portfolio website.";
+
+}
+
+/* =========================
+   BUTTON RIPPLE EFFECT
+========================= */
+
+const buttons =
+document.querySelectorAll(
+    ".btn, .btn-check"
+);
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", function(event){
+
+        const ripple =
+            document.createElement("span");
+
+        ripple.style.position = "absolute";
+        ripple.style.width = "100px";
+        ripple.style.height = "100px";
+        ripple.style.background =
+            "rgba(255,255,255,0.4)";
+        ripple.style.borderRadius = "50%";
+        ripple.style.transform = "scale(0)";
+        ripple.style.animation =
+            "ripple 0.6s linear";
+
+        ripple.style.left =
+            event.offsetX - 50 + "px";
+
+        ripple.style.top =
+            event.offsetY - 50 + "px";
+
+        this.appendChild(ripple);
+
+        setTimeout(() => {
+
+            ripple.remove();
+
+        }, 600);
+
+    });
+
+});
+
+/* =========================
+   RIPPLE ANIMATION
+========================= */
+
+const rippleStyle =
+document.createElement("style");
+
+rippleStyle.innerHTML = `
+
+@keyframes ripple{
+
+    to{
+        transform:scale(4);
+        opacity:0;
+    }
+
+}
+
+`;
+
+document.head.appendChild(rippleStyle);
+
+/* =========================
+   FLOATING PARTICLES
+========================= */
+
+for(let i = 0; i < 20; i++){
+
+    const particle =
+        document.createElement("div");
+
+    particle.style.position = "fixed";
+    particle.style.width = "4px";
+    particle.style.height = "4px";
+    particle.style.background =
+        "rgba(255,255,255,0.2)";
+    particle.style.borderRadius = "50%";
+
+    particle.style.left =
+        Math.random() * 100 + "vw";
+
+    particle.style.top =
+        Math.random() * 100 + "vh";
+
+    particle.style.animation =
+        `floating ${
+            5 + Math.random() * 5
+        }s linear infinite`;
+
+    particle.style.zIndex = "-1";
+
+    document.body.appendChild(particle);
+
+}
+
+/* =========================
+   FLOATING ANIMATION
+========================= */
+
+const floatingStyle =
+document.createElement("style");
+
+floatingStyle.innerHTML = `
+
+@keyframes floating{
+
+    0%{
+        transform:translateY(0px);
+        opacity:0;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-100vh);
+        opacity:0;
+    }
+
+}
+
+`;
+
+document.head.appendChild(floatingStyle);
+</script>
+
+</body>
+</html>
